@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { SectionHeader } from "@/components/editorial/section-header";
-import { ProductArtwork } from "@/components/editorial/covers";
+import { EditorialImage } from "@/components/editorial/editorial-image";
 import { Markdown } from "@/components/editorial/markdown";
 import { CheckoutButton } from "@/components/commerce/checkout-button";
 import { products } from "@/content/products";
 import { formatPrice } from "@/lib/commerce/offers";
 import { withBase } from "@/lib/config/paths";
+import { visuals, productVisualMap } from "@/content/visuals";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -35,6 +36,9 @@ export default async function ProductDetailPage({ params }: Props) {
   if (!product) {
     notFound();
   }
+
+  const productVisualId = product ? productVisualMap[product.slug] : undefined;
+  const productVisual = productVisualId ? visuals[productVisualId] : undefined;
 
   return (
     <>
@@ -99,12 +103,28 @@ export default async function ProductDetailPage({ params }: Props) {
 
             {/* Right: large artwork */}
             <div className="lg:col-span-5">
-              <ProductArtwork
-                title={product.title}
-                category={product.category}
-                price={formatPrice(product.price, product.currency)}
-                accent={product.heroAccent}
-              />
+              {productVisual ? (
+                <div className="aspect-square w-full overflow-hidden border border-[var(--rule)] bg-[var(--paper-deep)]">
+                  <EditorialImage
+                    src={productVisual.path}
+                    webp={productVisual.webp}
+                    alt={productVisual.alt}
+                    priority
+                    className="h-full w-full [&_img]:h-full [&_img]:object-cover"
+                    sizes="(min-width: 1024px) 40vw, 92vw"
+                  />
+                </div>
+              ) : (
+                <div className="aspect-square w-full border border-[var(--rule)] bg-[var(--ivory)] flex items-center justify-center">
+                  <span className="font-mono text-[0.625rem] tracking-[0.2em] uppercase text-[var(--warm-gray)]">
+                    {product.category}
+                  </span>
+                </div>
+              )}
+              <p className="mt-4 text-xs text-[var(--warm-gray)] leading-relaxed">
+                Photographic product image. Files are delivered digitally; no
+                physical object is shipped.
+              </p>
             </div>
           </div>
         </div>

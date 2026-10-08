@@ -49,21 +49,36 @@ export const metadata: Metadata = {
   creator: "Margin / Form (fictional demonstration)",
   robots: { index: false, follow: false }, // demo prevention default
   icons: {
-    icon: "/brand/favicon.svg",
-    apple: "/brand/favicon.svg",
+    icon: [
+      { url: "/brand/favicon.svg", type: "image/svg+xml" },
+      { url: "/brand/favicon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/brand/favicon-16.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: [{ url: "/brand/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+    shortcut: "/brand/favicon.svg",
   },
+  manifest: undefined,
   openGraph: {
     title: "Margin / Form — The business of independent creativity",
     description:
-      "Practical education, frameworks, and community for independent creative professionals.",
+      "Practical education, frameworks, and community for independent creative professionals. Make excellent work. Build a business that can sustain it.",
     type: "website",
     siteName: "Margin / Form",
+    images: [
+      {
+        url: "/images/og/og-default.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Margin / Form — The business of independent creativity",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Margin / Form",
+    title: "Margin / Form — The business of independent creativity",
     description:
-      "The business of independent creativity. Education, frameworks, and community.",
+      "The business of independent creativity. Education, frameworks, and community for independent creative professionals.",
+    images: ["/images/og/twitter-card.jpg"],
   },
 };
 

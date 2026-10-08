@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { cn } from "@/lib/utils";
 import { SectionHeader } from "@/components/editorial/section-header";
+import { EditorialImage } from "@/components/editorial/editorial-image";
 import { PlanSelector } from "@/components/membership/plan-selector";
 import { membership } from "@/content/membership";
+import { visuals } from "@/content/visuals";
 
 export const metadata: Metadata = {
   title: "The Practice Room",
@@ -112,6 +114,18 @@ export default function MembershipPage() {
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Wide editorial photograph — the Practice Room atmosphere */}
+          <div className="mt-12 md:mt-16">
+            <EditorialImage
+              src={visuals.membershipPracticeRoom.path}
+              webp={visuals.membershipPracticeRoom.webp}
+              alt={visuals.membershipPracticeRoom.alt}
+              sizes="(max-width: 1024px) 100vw, 1280px"
+              className="border border-[var(--rule)]"
+              caption={visuals.membershipPracticeRoom.caption}
+            />
           </div>
         </div>
       </section>

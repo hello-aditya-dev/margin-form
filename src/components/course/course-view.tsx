@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Check, Plus } from "lucide-react";
 import type { Course } from "@/content/types";
-import { CourseCover } from "@/components/editorial/covers";
+import { EditorialImage } from "@/components/editorial/editorial-image";
 import { Markdown } from "@/components/editorial/markdown";
 import { CheckoutButton } from "@/components/commerce/checkout-button";
 import { CurriculumAccordion } from "@/components/course/curriculum-accordion";
@@ -9,6 +9,7 @@ import { StickyCheckout } from "@/components/course/sticky-checkout";
 import { PreviewDownloadLink } from "@/components/course/preview-download";
 import { formatPrice } from "@/lib/commerce/offers";
 import { cn } from "@/lib/utils";
+import { visuals, courseVisualMap } from "@/content/visuals";
 
 const accentColorVar: Record<Course["heroAccent"], string> = {
   clay: "var(--clay)",
@@ -30,6 +31,7 @@ export function CourseView({ course }: { course: Course }) {
   const accent = accentColorVar[course.heroAccent];
   const isFlagship = Boolean(course.isFlagship);
   const heroEyebrow = `${course.coverLabel} · ${isFlagship ? "Flagship Course" : "Specialised Course"}`;
+  const heroVisual = visuals[courseVisualMap[course.slug]] ?? Object.values(visuals)[0];
 
   return (
     <>
@@ -103,14 +105,33 @@ export function CourseView({ course }: { course: Course }) {
             {/* Right column — course cover */}
             <div className="lg:col-span-5 order-1 lg:order-2">
               <div className="max-w-md mx-auto lg:max-w-none">
-                <CourseCover
-                  label={course.coverLabel}
-                  title={course.title}
-                  tagline={course.tagline}
-                  accent={course.heroAccent}
-                  price={formatPrice(course.price)}
-                  size="lg"
-                />
+                <div className="aspect-[3/4] w-full overflow-hidden border border-[var(--rule)] bg-[var(--paper-deep)]">
+                  <EditorialImage
+                    src={heroVisual.path}
+                    webp={heroVisual.webp}
+                    alt={heroVisual.alt}
+                    priority
+                    className="h-full w-full [&_img]:h-full [&_img]:object-cover"
+                    sizes="(min-width: 1024px) 40vw, 92vw"
+                  />
+                </div>
+                <div className="mt-4 flex items-baseline justify-between gap-4">
+                  <span
+                    className="font-mono text-[0.625rem] tracking-[0.18em] uppercase text-[var(--warm-gray)]"
+                  >
+                    {course.coverLabel} · Cover
+                  </span>
+                  <span
+                    className="font-mono text-sm"
+                    style={{ color: accent }}
+                  >
+                    {formatPrice(course.price, course.currency)}
+                  </span>
+                </div>
+                <p className="mt-3 text-xs text-[var(--warm-gray)] leading-relaxed">
+                  Photographic cover image. The course is a written
+                  curriculum; no physical object is shipped.
+                </p>
               </div>
             </div>
           </div>

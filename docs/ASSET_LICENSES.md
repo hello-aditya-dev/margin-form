@@ -71,16 +71,69 @@ build.
 
 ## 4. Imagery
 
-**No Unsplash or Pexels imagery is used in the final build.** Every visual
-composition is CSS or SVG. There are no photographs of people, no stock
-illustrations, and no AI-generated images of the founder.
+The site uses **19 original AI-generated editorial photographs** produced via
+the z-ai image generation API (`z-ai image` / `z-ai-web-dev-sdk`) for this
+demonstration. The generation pipeline is in `scripts/generate-images.ts` and
+the asset manifest is in `src/content/visuals.ts`.
 
-The founder portrait on the About page is an abstract CSS/SVG composition,
-not a photograph. This is deliberate: a fictional founder should not be
-illustrated with a real person's face.
+### Photographic assets
 
-The image-generation capability available in the workspace was **not used**.
-All visuals are hand-built with CSS and SVG.
+All photographs are original AI-generated editorial imagery. No real person
+is depicted. The founder portrait is a fictional AI-generated illustrative
+portrait of "Elena Mercer" — a fictional character.
+
+| Asset ID | Path | Used on |
+|----------|------|---------|
+| hero-studio | `public/images/hero/hero-studio.{jpg,webp}` | Homepage hero |
+| founder-portrait | `public/images/founder/founder-portrait.{jpg,webp}` | Homepage founder section, About page |
+| founder-at-work | `public/images/founder/founder-at-work.{jpg,webp}` | Homepage founder section (bg), About page |
+| creative-process | `public/images/founder/creative-process.{jpg,webp}` | Homepage problem section, About page |
+| studio-environment | `public/images/founder/studio-environment.{jpg,webp}` | About page |
+| course-independent-practice | `public/images/courses/course-independent-practice.{jpg,webp}` | Homepage, courses catalogue, course detail |
+| course-client-pipeline | `public/images/courses/course-client-pipeline.{jpg,webp}` | Homepage, courses catalogue, course detail |
+| product-proposal-system | `public/images/products/product-proposal-system.{jpg,webp}` | Homepage, shop, product detail |
+| product-pricing-workbook | `public/images/products/product-pricing-workbook.{jpg,webp}` | Homepage, shop, product detail |
+| product-client-brief-kit | `public/images/products/product-client-brief-kit.{jpg,webp}` | Homepage, shop, product detail |
+| membership-practice-room | `public/images/membership/membership-practice-room.{jpg,webp}` | Homepage, membership page |
+| newsletter-monday-letter | `public/images/newsletter/newsletter-monday-letter.{jpg,webp}` | Homepage, newsletter page |
+| resource-studio-audit | `public/images/resources/resource-studio-audit.{jpg,webp}` | Homepage, resources hub, resource detail |
+| journal-better-clients | `public/images/journal/journal-better-clients.{jpg,webp}` | Journal article + index |
+| journal-service-menu | `public/images/journal/journal-service-menu.{jpg,webp}` | Journal article + index |
+| journal-pricing-conversations | `public/images/journal/journal-pricing-conversations.{jpg,webp}` | Journal article + index |
+| journal-client-briefs | `public/images/journal/journal-client-briefs.{jpg,webp}` | Journal article + index |
+| journal-sustainable-practice | `public/images/journal/journal-sustainable-practice.{jpg,webp}` | Journal article + index |
+| journal-weekly-review | `public/images/journal/journal-weekly-review.{jpg,webp}` | Journal article + index |
+
+### Founder portrait disclosure
+
+The founder portrait is an **AI-generated illustrative portrait of a
+fictional character**. Elena Mercer is entirely fictional. No real person is
+depicted. The portrait was generated with the z-ai image generation API
+using a carefully art-directed prompt (woman in her early 30s, oatmeal wool
+blazer, contemplative expression, dark walnut studio desk, warm window
+light). This disclosure appears next to the portrait on the About page and
+the homepage, and is listed on the `/demo-information` page.
+
+### Brand social assets
+
+| Asset | Path | Status |
+|-------|------|--------|
+| Favicon (SVG) | `public/brand/favicon.svg` | Original SVG, hand-authored |
+| Favicon 32px | `public/brand/favicon-32.png` | Rendered from SVG via sharp |
+| Favicon 16px | `public/brand/favicon-16.png` | Rendered from SVG via sharp |
+| Apple touch icon | `public/brand/apple-touch-icon.png` | Original SVG rendered to PNG via sharp |
+| OG default image | `public/images/og/og-default.{jpg,webp}` | Original SVG rendered to JPEG/WebP via sharp |
+| Twitter card | `public/images/og/twitter-card.jpg` | Cropped from OG SVG via sharp |
+| Social square | `public/brand/social-square.png` | Original SVG rendered to PNG via sharp |
+| Icon 512 | `public/brand/icon-512.png` | Original SVG rendered to PNG via sharp |
+
+The brand asset generator is `scripts/generate-brand-assets.ts`.
+
+### No third-party photography
+
+No Unsplash, Pexels, or other third-party stock photography is used. All
+photographic imagery is original AI-generated content. All brand graphics
+(favicon, OG image, social cards) are original SVG/PNG works.
 
 ---
 

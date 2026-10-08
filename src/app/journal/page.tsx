@@ -4,6 +4,8 @@ import { ArrowRight } from "lucide-react";
 import { articles } from "@/content/journal";
 import { founder } from "@/content/founder";
 import { NewsletterForm } from "@/components/forms/newsletter-form";
+import { EditorialImage } from "@/components/editorial/editorial-image";
+import { visuals, journalVisualMap } from "@/content/visuals";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
@@ -48,7 +50,6 @@ function formatIssueDate(iso: string): string {
 
 export default function JournalIndexPage() {
   const [featured, ...rest] = articles;
-  const featuredAccent = accentMap[featured.heroAccent];
 
   // Asymmetric grid spans for the editorial list.
   // Alternating 7/5 rhythm with a full-width closing slot for the last item.
@@ -106,73 +107,35 @@ export default function JournalIndexPage() {
           </div>
 
           <article className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
-            {/* Art-directed hero block */}
+            {/* Editorial photograph — large landscape hero */}
             <Link
               href={`/journal/${featured.slug}`}
               className="lg:col-span-7 group block"
               aria-label={`Read: ${featured.title}`}
             >
-              <div
-                className="paper-grain relative overflow-hidden h-full min-h-[320px] md:min-h-[440px] flex flex-col justify-between p-8 md:p-12"
-                style={{ background: featuredAccent.bg, color: featuredAccent.fg }}
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex flex-col gap-1">
-                    <span className="font-mono text-[0.6875rem] tracking-[0.22em] uppercase opacity-90">
-                      {featured.volume} · {featured.issue}
-                    </span>
-                    <span className="font-mono text-[0.6875rem] tracking-[0.22em] uppercase opacity-70">
-                      {featured.category}
-                    </span>
-                  </div>
-                  <span
-                    className="font-display text-2xl md:text-3xl leading-none"
-                    style={{ color: featuredAccent.mark }}
-                    aria-hidden
-                  >
-                    M/F
-                  </span>
-                </div>
-
-                <div className="flex-1 flex items-center py-10">
-                  <h2
-                    className="font-display font-normal tracking-[-0.02em] leading-[0.98] text-balance"
-                    style={{ fontSize: "clamp(1.9rem, 4.2vw, 3.4rem)" }}
-                  >
-                    {featured.title}
-                  </h2>
-                </div>
-
-                <div className="flex items-end justify-between gap-4 pt-5 border-t"
-                  style={{ borderColor: `${featuredAccent.fg}33` }}
-                >
-                  <span className="font-mono text-[0.6875rem] tracking-[0.18em] uppercase opacity-80">
-                    The feature
-                  </span>
-                  <span
-                    className="font-mono text-[0.6875rem] tracking-[0.18em] uppercase"
-                    style={{ color: featuredAccent.mark }}
-                  >
-                    {featured.readingTime}
-                  </span>
-                </div>
-
-                <div
-                  aria-hidden
-                  className="absolute top-0 right-0 w-24 h-24 md:w-40 md:h-40 pointer-events-none"
-                  style={{
-                    background: `linear-gradient(225deg, ${featuredAccent.mark}22 0%, transparent 55%)`,
-                  }}
-                />
-              </div>
+              <EditorialImage
+                src={visuals[journalVisualMap[featured.slug]].path}
+                webp={visuals[journalVisualMap[featured.slug]].webp}
+                alt={visuals[journalVisualMap[featured.slug]].alt}
+                sizes="(max-width: 1024px) 100vw, 58vw"
+                priority
+                overlay="ink-15"
+                className="aspect-[16/10] md:aspect-[16/9] border border-[var(--rule)] group-hover:border-[var(--ink)] transition-colors"
+              />
             </Link>
 
-            {/* Right side: excerpt + CTA */}
+            {/* Right side: title + excerpt + CTA */}
             <div className="lg:col-span-5 flex flex-col justify-between gap-8">
               <div>
                 <p className="font-mono-label text-[var(--clay)] mb-4">
                   {featured.category}
                 </p>
+                <h2
+                  className="font-display font-normal tracking-[-0.02em] leading-[1.02] text-balance text-[var(--ink)] mb-5"
+                  style={{ fontSize: "clamp(1.9rem, 4.2vw, 3.4rem)" }}
+                >
+                  {featured.title}
+                </h2>
                 <p className="font-display italic text-xl md:text-2xl leading-snug text-[var(--ink-soft)] text-pretty">
                   {featured.excerpt}
                 </p>
@@ -254,8 +217,15 @@ export default function JournalIndexPage() {
                 >
                   <Link
                     href={`/journal/${article.slug}`}
-                    className="group flex w-full flex-col justify-between gap-8 p-7 md:p-9 lg:p-10 hover:bg-[var(--ivory)] transition-colors"
+                    className="group flex w-full flex-col justify-between gap-6 p-7 md:p-9 lg:p-10 hover:bg-[var(--ivory)] transition-colors"
                   >
+                    <EditorialImage
+                      src={visuals[journalVisualMap[article.slug]].path}
+                      webp={visuals[journalVisualMap[article.slug]].webp}
+                      alt={visuals[journalVisualMap[article.slug]].alt}
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="aspect-[3/2] border border-[var(--rule)] mb-2 group-hover:border-[var(--ink)] transition-colors"
+                    />
                     <div className="flex items-start justify-between gap-4">
                       <div className="flex items-baseline gap-3">
                         <span className="num-marker text-[var(--clay)]">

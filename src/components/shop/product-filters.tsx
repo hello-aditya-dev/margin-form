@@ -3,8 +3,9 @@
 import * as React from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { ProductArtwork } from "@/components/editorial/covers";
+import { EditorialImage } from "@/components/editorial/editorial-image";
 import { formatPrice } from "@/lib/commerce/offers";
+import { visuals, productVisualMap } from "@/content/visuals";
 import type { Product } from "@/content/types";
 
 interface ProductFiltersProps {
@@ -102,12 +103,32 @@ export function ProductFilters({ products, categories }: ProductFiltersProps) {
                 className="block"
                 aria-label={`View ${p.title}`}
               >
-                <ProductArtwork
-                  title={p.title}
-                  category={p.category}
-                  price={formatPrice(p.price, p.currency)}
-                  accent={p.heroAccent}
-                />
+                <div className="aspect-square w-full overflow-hidden border border-[var(--rule)] bg-[var(--paper-deep)] transition-colors group-hover:border-[var(--ink)]">
+                  {(() => {
+                    const visualId = productVisualMap[p.slug];
+                    const visual = visualId
+                      ? visuals[visualId]
+                      : undefined;
+                    if (!visual) {
+                      return (
+                        <div className="flex h-full w-full items-center justify-center bg-[var(--ivory)]">
+                          <span className="font-mono text-[0.625rem] tracking-[0.2em] uppercase text-[var(--warm-gray)]">
+                            {p.category}
+                          </span>
+                        </div>
+                      );
+                    }
+                    return (
+                      <EditorialImage
+                        src={visual.path}
+                        webp={visual.webp}
+                        alt={visual.alt}
+                        className="h-full w-full [&_img]:h-full [&_img]:object-cover"
+                        sizes="(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 92vw"
+                      />
+                    );
+                  })()}
+                </div>
                 <div className="mt-5">
                   <h3 className="font-display text-2xl tracking-[-0.01em] leading-tight">
                     {p.title}

@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { founder } from "@/content/founder";
+import { visuals } from "@/content/visuals";
+import { EditorialImage } from "@/components/editorial/editorial-image";
 
 export const metadata: Metadata = {
   title: "About",
   description:
-    "The story behind Margin / Form — a fictional independent creative-business education practice founded by Elena Mercer (demonstration). The frameworks, the principles, and the voice.",
+    "The story behind Margin / Form — a fictional independent creative-business education practice founded by Elena Mercer. The frameworks, the principles, and the voice.",
   robots: { index: false, follow: true },
 };
 
@@ -34,32 +36,121 @@ export default function AboutPage() {
               Founder: {founder.name} · {founder.role}
             </p>
           </div>
+
+          {/* Wide editorial banner — studio environment */}
+          <div className="mt-12 md:mt-16 max-w-6xl">
+            <EditorialImage
+              src={visuals.studioEnvironment.path}
+              webp={visuals.studioEnvironment.webp}
+              alt={visuals.studioEnvironment.alt}
+              sizes="(max-width: 768px) 100vw, 1024px"
+              priority
+              className="border border-[var(--rule)] bg-[var(--ivory)]"
+              caption="The studio, late afternoon — illustrative atmosphere for a fictional practice."
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ============ FOUNDER PORTRAIT ============ */}
+      <section className="border-b border-[var(--rule)] bg-[var(--paper-deep)]">
+        <div className="container-editorial py-20 md:py-28">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            <div className="lg:col-span-5">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="num-marker text-[var(--clay)]">02</span>
+                <span className="eyebrow">Portrait</span>
+              </div>
+              <h2 className="font-display text-3xl md:text-4xl tracking-[-0.015em] leading-[1.05] font-normal text-balance">
+                The founder, in the studio.
+              </h2>
+              <p className="mt-6 text-[var(--ink-soft)] leading-relaxed text-pretty">
+                {founder.name} is the fictional founder of Margin / Form. The
+                portrait here is an AI-generated illustrative image — a
+                considered stand-in for a real headshot, used so the practice
+                can put a face to the work without implying one exists.
+              </p>
+              <p className="mt-4 text-[var(--ink-soft)] leading-relaxed text-pretty">
+                The frameworks, the principles, and the editorial voice are the
+                substance. The portrait is a way of making the page feel
+                inhabited.
+              </p>
+              <aside
+                className="mt-6 border-l-2 border-[var(--clay)] pl-5 py-2"
+                aria-label="Portrait disclosure"
+              >
+                <p className="font-mono text-[0.625rem] tracking-[0.18em] uppercase text-[var(--clay)] mb-2">
+                  Disclosure
+                </p>
+                <p className="text-sm text-[var(--ink-soft)] leading-relaxed text-pretty">
+                  Elena Mercer is a fictional founder. This is an AI-generated
+                  illustrative portrait — no real person is depicted. See the{" "}
+                  <Link
+                    href="/demo-information"
+                    className="text-[var(--clay)] underline underline-offset-2 hover:text-[var(--ink)]"
+                  >
+                    Demo Information
+                  </Link>{" "}
+                  page for the full disclosure.
+                </p>
+              </aside>
+            </div>
+            <div className="lg:col-span-7 flex justify-center lg:justify-end">
+              <div className="w-full max-w-sm">
+                <EditorialImage
+                  src={visuals.founderPortrait.path}
+                  webp={visuals.founderPortrait.webp}
+                  alt={visuals.founderPortrait.alt}
+                  sizes="(max-width: 1024px) 80vw, 28rem"
+                  className="border border-[var(--rule)] bg-[var(--ivory)]"
+                  caption={visuals.founderPortrait.caption}
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* ============ FOUNDER NARRATIVE ============ */}
-      <section className="border-b border-[var(--rule)] bg-[var(--paper-deep)]">
+      <section className="border-b border-[var(--rule)]">
         <div className="container-editorial py-20 md:py-28">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             <div className="lg:col-span-4">
               <div className="flex items-center gap-3 mb-6">
-                <span className="num-marker text-[var(--clay)]">02</span>
+                <span className="num-marker text-[var(--clay)]">03</span>
                 <span className="eyebrow">The narrative</span>
               </div>
               <h2 className="font-display text-3xl md:text-4xl tracking-[-0.015em] leading-[1.05] font-normal text-balance">
                 A practice is a system, not a mood.
               </h2>
               <p className="mt-6 text-[var(--ink-soft)] leading-relaxed text-pretty">
-                The founder narrative below is a demonstration identity. The
+                The founder narrative is a demonstration identity. The
                 frameworks are the point; the persona is a vehicle.
               </p>
             </div>
             <div className="lg:col-span-8 reading-column">
               <div className="prose-editorial">
-                {founder.narrative.map((paragraph, i) => (
-                  <p key={i}>{paragraph}</p>
-                ))}
+                <p>{founder.narrative[0]}</p>
+                <p>{founder.narrative[1]}</p>
               </div>
+
+              {/* Landscape image breaking up the narrative */}
+              <figure className="my-10 md:my-12">
+                <EditorialImage
+                  src={visuals.founderAtWork.path}
+                  webp={visuals.founderAtWork.webp}
+                  alt={visuals.founderAtWork.alt}
+                  sizes="(max-width: 1024px) 100vw, 56vw"
+                  className="border border-[var(--rule)] bg-[var(--ivory)]"
+                  caption="At the studio table, reviewing the week's proposals — illustrative photograph for a fictional practice."
+                />
+              </figure>
+
+              <div className="prose-editorial">
+                <p>{founder.narrative[2]}</p>
+                <p>{founder.narrative[3]}</p>
+              </div>
+
               <aside
                 className="mt-8 border-l-2 border-[var(--clay)] pl-5 py-2"
                 aria-label="Demonstration notice"
@@ -85,98 +176,38 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ============ ABSTRACT FOUNDER PORTRAIT ============ */}
-      <section className="border-b border-[var(--rule)]">
-        <div className="container-editorial py-20 md:py-28">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            <div className="lg:col-span-5">
-              <div className="flex items-center gap-3 mb-6">
-                <span className="num-marker text-[var(--clay)]">03</span>
-                <span className="eyebrow">Portrait</span>
-              </div>
-              <h2 className="font-display text-3xl md:text-4xl tracking-[-0.015em] leading-[1.05] font-normal text-balance">
-                The founder is a composition, not a photograph.
-              </h2>
-              <p className="mt-6 text-[var(--ink-soft)] leading-relaxed text-pretty">
-                Margin / Form is a demonstration. To stay honest about that, the
-                founder is represented by an art-directed typographic
-                composition rather than a stock photograph of a person. No real
-                individual is depicted or implied.
-              </p>
-              <p className="mt-4 text-[var(--ink-soft)] leading-relaxed text-pretty">
-                The initials stand in for the founder name; the paper grain and
-                the editorial lockup are the visual identity of the practice.
-              </p>
-            </div>
-            <div className="lg:col-span-7">
-              <figure className="border border-[var(--rule)] bg-[var(--ivory)] paper-grain">
-                <div className="bg-[var(--ink)] text-[var(--paper)] paper-grain aspect-[4/5] md:aspect-[5/4] relative overflow-hidden flex flex-col">
-                  <div className="flex items-center justify-between px-6 md:px-8 pt-6 md:pt-8">
-                    <span className="font-mono text-[0.625rem] tracking-[0.22em] uppercase text-[var(--paper)]/60">
-                      Margin / Form
-                    </span>
-                    <span className="font-mono text-[0.625rem] tracking-[0.18em] uppercase text-[var(--clay)]">
-                      Vol. 01
-                    </span>
-                  </div>
-                  <div className="flex-1 flex items-center justify-center px-6">
-                    <span className="font-display tracking-[-0.04em] leading-none text-[28vw] md:text-[14rem] lg:text-[16rem] text-[var(--paper)] select-none">
-                      EM
-                    </span>
-                  </div>
-                  <div className="flex items-end justify-between px-6 md:px-8 pb-6 md:pb-8">
-                    <div>
-                      <p className="font-mono text-[0.625rem] tracking-[0.18em] uppercase text-[var(--paper)]/60">
-                        Founder
-                      </p>
-                      <p className="mt-1 font-display text-xl md:text-2xl tracking-tight text-[var(--paper)]">
-                        {founder.name}
-                      </p>
-                    </div>
-                    <span className="font-mono text-[0.625rem] tracking-[0.18em] uppercase text-[var(--paper)]/60 text-right">
-                      Illustrative
-                      <br />
-                      composition
-                    </span>
-                  </div>
-                </div>
-                <figcaption className="px-6 md:px-8 py-4 border-t border-[var(--rule)] flex items-center justify-between gap-4 flex-wrap">
-                  <span className="font-mono text-[0.625rem] tracking-[0.18em] uppercase text-[var(--warm-gray)]">
-                    Portrait · Vol. 01 / Illustrative composition
-                  </span>
-                  <span className="font-mono text-[0.625rem] tracking-[0.15em] uppercase text-[var(--clay)]">
-                    Fictional
-                  </span>
-                </figcaption>
-              </figure>
-              <p className="mt-3 text-xs text-[var(--warm-gray)] leading-relaxed">
-                The founder is fictional; no real person is depicted.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ============ FOUNDER QUOTE ============ */}
       <section className="border-b border-[var(--rule)] bg-[var(--paper-deep)]">
         <div className="container-editorial py-20 md:py-28">
-          <div className="max-w-4xl">
-            <div className="flex items-center gap-3 mb-8">
-              <span className="num-marker text-[var(--clay)]">04</span>
-              <span className="eyebrow">A working principle</span>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-8">
+              <div className="flex items-center gap-3 mb-8">
+                <span className="num-marker text-[var(--clay)]">04</span>
+                <span className="eyebrow">A working principle</span>
+              </div>
+              <blockquote className="font-display text-3xl md:text-4xl lg:text-5xl tracking-[-0.02em] leading-[1.12] font-normal text-balance text-[var(--ink)]">
+                <span aria-hidden className="text-[var(--clay)] mr-1">
+                  &ldquo;
+                </span>
+                {founder.quote}
+                <span aria-hidden className="text-[var(--clay)] ml-1">
+                  &rdquo;
+                </span>
+              </blockquote>
+              <p className="mt-8 font-mono text-[0.625rem] tracking-[0.18em] uppercase text-[var(--warm-gray)]">
+                — {founder.name}, founder (fictional)
+              </p>
             </div>
-            <blockquote className="font-display text-3xl md:text-4xl lg:text-5xl tracking-[-0.02em] leading-[1.12] font-normal text-balance text-[var(--ink)]">
-              <span aria-hidden className="text-[var(--clay)] mr-1">
-                &ldquo;
-              </span>
-              {founder.quote}
-              <span aria-hidden className="text-[var(--clay)] ml-1">
-                &rdquo;
-              </span>
-            </blockquote>
-            <p className="mt-8 font-mono text-[0.625rem] tracking-[0.18em] uppercase text-[var(--warm-gray)]">
-              — {founder.name}, founder (fictional)
-            </p>
+            <div className="lg:col-span-4">
+              <EditorialImage
+                src={visuals.creativeProcess.path}
+                webp={visuals.creativeProcess.webp}
+                alt={visuals.creativeProcess.alt}
+                sizes="(max-width: 1024px) 100vw, 32vw"
+                className="border border-[var(--rule)] bg-[var(--ivory)]"
+                caption="The work in progress — notes, samples, and a brass ruler on the studio desk."
+              />
+            </div>
           </div>
         </div>
       </section>

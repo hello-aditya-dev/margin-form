@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Wordmark } from "@/components/brand/wordmark";
 import { SectionHeader } from "@/components/editorial/section-header";
-import { CourseCover, ProductArtwork } from "@/components/editorial/covers";
+import { EditorialImage } from "@/components/editorial/editorial-image";
 import { NewsletterForm } from "@/components/forms/newsletter-form";
 import { CheckoutButton } from "@/components/commerce/checkout-button";
 import { courses } from "@/content/courses";
@@ -11,6 +11,7 @@ import { membership } from "@/content/membership";
 import { articles } from "@/content/journal";
 import { resources } from "@/content/resources";
 import { founder } from "@/content/founder";
+import { visuals, journalVisualMap, courseVisualMap, productVisualMap } from "@/content/visuals";
 import { formatPrice } from "@/lib/commerce/offers";
 
 export default function HomePage() {
@@ -24,75 +25,63 @@ export default function HomePage() {
 
   return (
     <>
-      {/* ============ SECTION 01 — HERO ============ */}
+      {/* ============ SECTION 01 — HERO (photographic split) ============ */}
       <section className="relative border-b border-[var(--rule)] overflow-hidden">
-        <div className="container-editorial py-12 md:py-20 lg:py-28">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 items-start">
-            {/* Left: headline + CTAs */}
-            <div className="lg:col-span-8">
-              <div className="flex items-center gap-3 mb-8">
-                <span className="num-marker text-[var(--clay)]">01</span>
-                <span className="eyebrow">Business Education for Independent Creatives</span>
-              </div>
-              <h1 className="font-display font-normal tracking-[-0.025em] leading-[0.95] text-[clamp(2.75rem,8vw,7rem)] text-balance">
-                Make excellent work.
-                <br />
-                <span className="italic text-[var(--clay)]">Build a business</span>
-                <br />
-                that can sustain it.
-              </h1>
-              <p className="mt-8 max-w-xl text-lg md:text-xl text-[var(--ink-soft)] leading-relaxed text-pretty">
-                Practical courses, useful tools, and a considered community for
-                people building a living from their creative work — without
-                turning themselves into a sales personality.
-              </p>
-              <div className="mt-10 flex flex-col sm:flex-row gap-4">
-                <CheckoutButton
-                  offerSlug={flagship.slug}
-                  label="hero-flagship"
-                  className="px-7 py-4"
-                >
-                  Explore the Courses
-                  <ArrowRight size={16} />
-                </CheckoutButton>
-                <Link
-                  href="/resources/studio-audit"
-                  className="btn-outline px-7 py-4 font-mono-label inline-flex items-center justify-center gap-2"
-                >
-                  Start with a Free Resource
-                </Link>
-              </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[80vh] lg:min-h-[88vh]">
+          {/* Left: headline + CTAs (7 cols) */}
+          <div className="lg:col-span-7 flex flex-col justify-center container-editorial py-16 md:py-24 lg:py-0 lg:pr-8">
+            <div className="flex items-center gap-3 mb-8">
+              <span className="num-marker text-[var(--clay)]">01</span>
+              <span className="eyebrow">Business Education for Independent Creatives</span>
             </div>
+            <h1 className="font-display font-normal tracking-[-0.025em] leading-[0.95] text-[clamp(2.5rem,7vw,6rem)] text-balance">
+              Make excellent work.
+              <br />
+              <span className="italic text-[var(--clay)]">Build a business</span>
+              <br />
+              that can sustain it.
+            </h1>
+            <p className="mt-8 max-w-xl text-lg md:text-xl text-[var(--ink-soft)] leading-relaxed text-pretty">
+              Practical courses, useful tools, and a considered community for
+              people building a living from their creative work — without
+              turning themselves into a sales personality.
+            </p>
+            {/* FIX: CTA now navigates to /courses (not checkout) */}
+            <div className="mt-10 flex flex-col sm:flex-row gap-4">
+              <Link
+                href="/courses"
+                className="btn-ink px-7 py-4 font-mono-label inline-flex items-center justify-center gap-2"
+              >
+                Explore the Courses
+                <ArrowRight size={16} />
+              </Link>
+              <Link
+                href="/resources/studio-audit"
+                className="btn-outline px-7 py-4 font-mono-label inline-flex items-center justify-center gap-2"
+              >
+                Start with a Free Resource
+              </Link>
+            </div>
+            <p className="mt-6 eyebrow text-[var(--warm-gray)]">
+              No hustle sermons. Just the parts of business nobody taught you.
+            </p>
+          </div>
 
-            {/* Right: art-directed publication composition */}
-            <div className="lg:col-span-4 lg:pl-8 lg:border-l lg:border-[var(--rule)]">
-              <div className="space-y-6">
-                <div className="flex items-baseline justify-between">
-                  <span className="eyebrow text-[var(--clay)]">Now Publishing</span>
-                  <span className="num-marker">Autumn 2026</span>
-                </div>
-                <div className="relative">
-                  <CourseCover
-                    label={flagship.coverLabel}
-                    title={flagship.title}
-                    tagline={flagship.tagline}
-                    accent={flagship.heroAccent}
-                    price={formatPrice(flagship.price)}
-                    size="md"
-                  />
-                </div>
-                <div className="border border-[var(--rule)] bg-[var(--ivory)] p-5">
-                  <p className="font-mono text-[0.625rem] tracking-[0.18em] uppercase text-[var(--warm-gray)] mb-2">
-                    From the Founder
-                  </p>
-                  <p className="font-display italic text-lg leading-snug text-[var(--ink)]">
-                    “{founder.statement}”
-                  </p>
-                  <p className="mt-3 font-mono text-[0.625rem] tracking-[0.15em] uppercase text-[var(--warm-gray)]">
-                    — {founder.name}
-                  </p>
-                </div>
-              </div>
+          {/* Right: full-bleed hero photograph (5 cols) */}
+          <div className="lg:col-span-5 relative min-h-[50vh] lg:min-h-full bg-[var(--ink)]">
+            <EditorialImage
+              src={visuals.heroStudio.path}
+              webp={visuals.heroStudio.webp}
+              alt={visuals.heroStudio.alt}
+              priority
+              fill
+              sizes="(max-width: 1024px) 100vw, 42vw"
+            />
+            {/* Caption overlay */}
+            <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-[var(--ink)]/60 to-transparent">
+              <p className="font-mono text-[0.625rem] tracking-[0.18em] uppercase text-[var(--paper)]/90">
+                {visuals.heroStudio.caption}
+              </p>
             </div>
           </div>
         </div>
@@ -115,11 +104,21 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ============ SECTION 02 — THE PROBLEM ============ */}
+      {/* ============ SECTION 02 — THE PROBLEM (with image) ============ */}
       <section className="border-b border-[var(--rule)]">
         <div className="container-editorial py-20 md:py-28">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-            <div className="lg:col-span-4">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-5 order-2 lg:order-1">
+              <EditorialImage
+                src={visuals.creativeProcess.path}
+                webp={visuals.creativeProcess.webp}
+                alt={visuals.creativeProcess.alt}
+                sizes="(max-width: 1024px) 100vw, 42vw"
+                className="border border-[var(--rule)]"
+                caption="The practice, made tangible."
+              />
+            </div>
+            <div className="lg:col-span-7 order-1 lg:order-2">
               <div className="flex items-center gap-3 mb-6">
                 <span className="num-marker text-[var(--clay)]">02</span>
                 <span className="eyebrow">The Problem</span>
@@ -127,41 +126,31 @@ export default function HomePage() {
               <h2 className="font-display text-4xl md:text-5xl lg:text-6xl tracking-[-0.02em] leading-[1.0] font-normal text-balance">
                 The work is only <span className="italic">half</span> the job.
               </h2>
-            </div>
-            <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
-              {[
-                {
-                  n: "i.",
-                  t: "You were taught the craft.",
-                  b: "Few independent creatives were ever taught how to price it, scope it, propose it, and deliver it without losing the practice they wanted.",
-                },
-                {
-                  n: "ii.",
-                  t: "Good work, inconsistent income.",
-                  b: "The portfolio is strong. The pipeline is a mood. Pricing is guessed. Proposals are rewritten from scratch each time.",
-                },
-                {
-                  n: "iii.",
-                  t: "The other half of the job.",
-                  b: "Positioning, pricing, proposals, delivery, and a weekly rhythm. Not growth hacks. The quiet, repeatable business of staying independent.",
-                },
-              ].map((item) => (
-                <div key={item.n} className="border-t border-[var(--ink)] pt-5">
-                  <span className="font-display italic text-[var(--clay)] text-2xl">{item.n}</span>
-                  <h3 className="mt-3 font-display text-2xl tracking-tight leading-tight">
-                    {item.t}
-                  </h3>
-                  <p className="mt-3 text-[var(--ink-soft)] leading-relaxed text-pretty">
-                    {item.b}
-                  </p>
-                </div>
-              ))}
+              <div className="mt-8 space-y-5">
+                {[
+                  { n: "i.", t: "You were taught the craft.", b: "Few independent creatives were ever taught how to price it, scope it, propose it, and deliver it without losing the practice they wanted." },
+                  { n: "ii.", t: "Good work, inconsistent income.", b: "The portfolio is strong. The pipeline is a mood. Pricing is guessed. Proposals are rewritten from scratch each time." },
+                  { n: "iii.", t: "The other half of the job.", b: "Positioning, pricing, proposals, delivery, and a weekly rhythm. Not growth hacks. The quiet, repeatable business of staying independent." },
+                ].map((item) => (
+                  <div key={item.n} className="border-t border-[var(--ink)] pt-4 flex gap-5">
+                    <span className="font-display italic text-[var(--clay)] text-2xl shrink-0">{item.n}</span>
+                    <div>
+                      <h3 className="font-display text-xl md:text-2xl tracking-tight leading-tight">
+                        {item.t}
+                      </h3>
+                      <p className="mt-1.5 text-[var(--ink-soft)] leading-relaxed text-pretty">
+                        {item.b}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ============ SECTION 03 — EDUCATION OFFERINGS ============ */}
+      {/* ============ SECTION 03 — EDUCATION OFFERINGS (photographic course covers) ============ */}
       <section className="border-b border-[var(--rule)] bg-[var(--paper-deep)]">
         <div className="container-editorial py-20 md:py-28">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
@@ -183,21 +172,24 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8">
-            {/* Flagship — gets more weight */}
+            {/* Flagship — gets more weight, uses course photograph */}
             <div className="lg:col-span-7">
-              <Link
-                href={`/courses/${flagship.slug}`}
-                className="group block"
-              >
+              <Link href={`/courses/${flagship.slug}`} className="group block">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-                  <CourseCover
-                    label={flagship.coverLabel}
-                    title={flagship.title}
-                    tagline={flagship.tagline}
-                    accent={flagship.heroAccent}
-                    price={formatPrice(flagship.price)}
-                    size="lg"
-                  />
+                  <div className="relative">
+                    <EditorialImage
+                      src={visuals[courseVisualMap[flagship.slug]].path}
+                      webp={visuals[courseVisualMap[flagship.slug]].webp}
+                      alt={visuals[courseVisualMap[flagship.slug]].alt}
+                      sizes="(max-width: 768px) 100vw, 30vw"
+                      className="aspect-[3/4] border border-[var(--rule)]"
+                    />
+                    <div className="absolute top-4 left-4 bg-[var(--paper)]/90 backdrop-blur-sm px-3 py-1.5">
+                      <span className="font-mono text-[0.625rem] tracking-[0.18em] uppercase text-[var(--clay)]">
+                        {flagship.coverLabel} · ${flagship.price}
+                      </span>
+                    </div>
+                  </div>
                   <div className="md:pt-4">
                     <span className="font-mono text-[0.625rem] tracking-[0.2em] uppercase text-[var(--clay)]">
                       Flagship Course · 8 Modules
@@ -231,29 +223,28 @@ export default function HomePage() {
             {/* Secondary */}
             <div className="lg:col-span-5 lg:border-l lg:border-[var(--rule)] lg:pl-8">
               <Link href={`/courses/${secondary.slug}`} className="group block">
-                <CourseCover
-                  label={secondary.coverLabel}
-                  title={secondary.title}
-                  tagline={secondary.tagline}
-                  accent={secondary.heroAccent}
-                  price={formatPrice(secondary.price)}
-                  size="md"
+                <EditorialImage
+                  src={visuals[courseVisualMap[secondary.slug]].path}
+                  webp={visuals[courseVisualMap[secondary.slug]].webp}
+                  alt={visuals[courseVisualMap[secondary.slug]].alt}
+                  sizes="(max-width: 1024px) 100vw, 40vw"
+                  className="aspect-[3/4] border border-[var(--rule)] mb-6"
                 />
-                <div className="mt-6">
-                  <span className="font-mono text-[0.625rem] tracking-[0.2em] uppercase text-[var(--olive)]">
-                    Specialised Course · 6 Modules
-                  </span>
-                  <h3 className="mt-2 font-display text-2xl md:text-3xl tracking-tight leading-tight">
-                    {secondary.title}
-                  </h3>
-                  <p className="mt-2 italic text-[var(--ink-soft)]">{secondary.tagline}</p>
-                  <p className="mt-3 text-sm text-[var(--ink-soft)] leading-relaxed">
-                    A focused course on building a repeatable client pipeline —
-                    without cold outreach scripts or hustle.
-                  </p>
-                  <div className="mt-4 flex items-center gap-2 font-mono-label text-[var(--clay)] group-hover:text-[var(--ink)] transition-colors">
-                    Explore the course <ArrowUpRight size={14} />
-                  </div>
+                <div className="absolute top-4 left-4">
+                </div>
+                <span className="font-mono text-[0.625rem] tracking-[0.2em] uppercase text-[var(--olive)]">
+                  Specialised Course · 6 Modules · ${secondary.price}
+                </span>
+                <h3 className="mt-2 font-display text-2xl md:text-3xl tracking-tight leading-tight">
+                  {secondary.title}
+                </h3>
+                <p className="mt-2 italic text-[var(--ink-soft)]">{secondary.tagline}</p>
+                <p className="mt-3 text-sm text-[var(--ink-soft)] leading-relaxed">
+                  A focused course on building a repeatable client pipeline —
+                  without cold outreach scripts or hustle.
+                </p>
+                <div className="mt-4 flex items-center gap-2 font-mono-label text-[var(--clay)] group-hover:text-[var(--ink)] transition-colors">
+                  Explore the course <ArrowUpRight size={14} />
                 </div>
               </Link>
             </div>
@@ -261,7 +252,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ============ SECTION 04 — FEATURED RESOURCES (SHOP) ============ */}
+      {/* ============ SECTION 04 — FEATURED RESOURCES (photographic products) ============ */}
       <section className="border-b border-[var(--rule)]">
         <div className="container-editorial py-20 md:py-28">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
@@ -289,72 +280,66 @@ export default function HomePage() {
                   <span className="num-marker">{String(i + 1).padStart(2, "0")}</span>
                   <span className="eyebrow">{p.category}</span>
                 </div>
-                <ProductArtwork
-                  title={p.title}
-                  category={p.category}
-                  price={formatPrice(p.price)}
-                  accent={p.heroAccent}
+                <EditorialImage
+                  src={visuals[productVisualMap[p.slug]].path}
+                  webp={visuals[productVisualMap[p.slug]].webp}
+                  alt={visuals[productVisualMap[p.slug]].alt}
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="aspect-square border border-[var(--rule)] mb-4 group-hover:border-[var(--ink)] transition-colors"
                 />
-                <div className="mt-4">
-                  <h3 className="font-display text-xl tracking-tight leading-tight group-hover:text-[var(--clay)] transition-colors">
-                    {p.title}
-                  </h3>
-                  <p className="mt-1 text-sm text-[var(--ink-soft)] leading-relaxed">
-                    {p.tagline}
-                  </p>
-                </div>
+                <h3 className="font-display text-xl tracking-tight leading-tight group-hover:text-[var(--clay)] transition-colors">
+                  {p.title}
+                </h3>
+                <p className="mt-1 text-sm text-[var(--ink-soft)] leading-relaxed">
+                  {p.tagline}
+                </p>
+                <p className="mt-2 font-mono text-sm text-[var(--clay)]">
+                  {formatPrice(p.price)}
+                </p>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ============ SECTION 05 — FOUNDER VIEWPOINT ============ */}
-      <section className="border-b border-[var(--rule)] bg-[var(--ink)] text-[var(--paper)]">
-        <div className="container-editorial py-20 md:py-28">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+      {/* ============ SECTION 05 — FOUNDER (full-bleed photographic moment) ============ */}
+      <section className="border-b border-[var(--rule)] bg-[var(--ink)] text-[var(--paper)] relative overflow-hidden">
+        {/* Full-bleed founder image as background */}
+        <div className="absolute inset-0 opacity-30">
+          <EditorialImage
+            src={visuals.founderAtWork.path}
+            webp={visuals.founderAtWork.webp}
+            alt=""
+            fill
+            sizes="100vw"
+          />
+        </div>
+        <div className="relative container-editorial py-20 md:py-28">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-5">
               <div className="flex items-center gap-3 mb-6">
                 <span className="num-marker text-[var(--clay)]">05</span>
                 <span className="eyebrow text-[var(--linen)]">Founder Viewpoint</span>
               </div>
-              {/* Abstract editorial portrait treatment — no real person */}
-              <div
-                className="aspect-[4/5] w-full max-w-sm border border-[var(--paper)]/20 relative overflow-hidden paper-grain"
-                aria-label="Abstract editorial portrait representing the fictional founder"
-                role="img"
-              >
-                <div className="absolute inset-0 flex flex-col justify-between p-6">
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-[0.625rem] tracking-[0.2em] uppercase text-[var(--paper)]/60">
-                      Portrait · Vol. 01
-                    </span>
-                    <span className="font-display text-[var(--clay)] text-lg">M/F</span>
-                  </div>
-                  <div className="flex items-center justify-center flex-1">
-                    <span className="font-display text-[8rem] leading-none text-[var(--paper)]/15 select-none">
-                      EM
-                    </span>
-                  </div>
-                  <div>
-                    <p className="font-display text-2xl tracking-tight">{founder.name}</p>
-                    <p className="font-mono text-[0.625rem] tracking-[0.15em] uppercase text-[var(--paper)]/60 mt-1">
-                      {founder.role}
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <p className="mt-4 text-xs text-[var(--paper)]/60 leading-relaxed max-w-sm">
-                Illustrative composition. The founder is fictional; no real
-                person is depicted.
-              </p>
+              {/* Real founder portrait — replaces EM placeholder */}
+              <EditorialImage
+                src={visuals.founderPortrait.path}
+                webp={visuals.founderPortrait.webp}
+                alt={visuals.founderPortrait.alt}
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                className="border border-[var(--paper)]/20 max-w-sm"
+                caption="AI-generated illustrative portrait of a fictional founder."
+              />
             </div>
             <div className="lg:col-span-7 lg:pl-8">
               <blockquote className="font-display text-3xl md:text-4xl lg:text-5xl tracking-[-0.015em] leading-[1.1] font-normal text-balance">
-                <span className="text-[var(--clay)]">“</span>
+                <span className="text-[var(--clay)]">"</span>
                 {founder.quote}
-                <span className="text-[var(--clay)]">”</span>
+                <span className="text-[var(--clay)]">"</span>
               </blockquote>
+              <p className="mt-6 font-mono text-[0.6875rem] tracking-[0.15em] uppercase text-[var(--paper)]/60">
+                — {founder.name}, {founder.role}
+              </p>
               <div className="mt-10 space-y-5 max-w-2xl text-[var(--paper)]/80 leading-relaxed">
                 <p>{founder.narrative[1]}</p>
                 <p>{founder.narrative[2]}</p>
@@ -382,10 +367,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ============ SECTION 06 — THE PRACTICE ROOM (MEMBERSHIP) ============ */}
+      {/* ============ SECTION 06 — THE PRACTICE ROOM (with membership image) ============ */}
       <section className="border-b border-[var(--rule)]">
         <div className="container-editorial py-20 md:py-28">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-5">
               <div className="flex items-center gap-3 mb-6">
                 <span className="num-marker text-[var(--clay)]">06</span>
@@ -431,20 +416,22 @@ export default function HomePage() {
                 </Link>
               </div>
             </div>
-            <div className="lg:col-span-7 lg:pl-8 lg:border-l lg:border-[var(--rule)]">
-              <span className="eyebrow text-[var(--olive)]">Member Benefits</span>
-              <ul className="mt-5 divide-y divide-[var(--rule)]">
-                {membership.benefits.slice(0, 5).map((b, i) => (
-                  <li key={b.title} className="py-4 flex gap-5">
-                    <span className="num-marker text-[var(--clay)] pt-1 shrink-0">
+            <div className="lg:col-span-7">
+              <EditorialImage
+                src={visuals.membershipPracticeRoom.path}
+                webp={visuals.membershipPracticeRoom.webp}
+                alt={visuals.membershipPracticeRoom.alt}
+                sizes="(max-width: 1024px) 100vw, 58vw"
+                className="border border-[var(--rule)]"
+                caption={visuals.membershipPracticeRoom.caption}
+              />
+              <ul className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2">
+                {membership.benefits.slice(0, 6).map((b, i) => (
+                  <li key={b.title} className="flex items-baseline gap-3 py-2 border-t border-[var(--rule)]">
+                    <span className="num-marker text-[var(--clay)] shrink-0">
                       {String(i + 1).padStart(2, "0")}
                     </span>
-                    <div>
-                      <h3 className="font-display text-xl tracking-tight">{b.title}</h3>
-                      <p className="mt-1 text-sm text-[var(--ink-soft)] leading-relaxed">
-                        {b.description}
-                      </p>
-                    </div>
+                    <span className="text-sm text-[var(--ink-soft)]">{b.title}</span>
                   </li>
                 ))}
               </ul>
@@ -453,7 +440,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ============ SECTION 07 — FROM THE JOURNAL ============ */}
+      {/* ============ SECTION 07 — FROM THE JOURNAL (with editorial thumbnails) ============ */}
       <section className="border-b border-[var(--rule)] bg-[var(--paper-deep)]">
         <div className="container-editorial py-20 md:py-28">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
@@ -475,58 +462,38 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {featuredArticles.map((a, i) => (
-              <Link key={a.slug} href={`/journal/${a.slug}`} className="group block">
-                <article>
-                  <div className="aspect-[3/2] border border-[var(--rule)] paper-grain relative overflow-hidden flex flex-col justify-between p-5"
-                    style={{
-                      background:
-                        a.heroAccent === "clay"
-                          ? "var(--clay)"
-                          : a.heroAccent === "olive"
-                          ? "var(--olive)"
-                          : "var(--ink)",
-                      color: "var(--paper)",
-                    }}
-                    aria-hidden
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="font-mono text-[0.625rem] tracking-[0.2em] uppercase opacity-80">
-                        {a.volume} · {a.issue}
-                      </span>
-                      <span className="font-display text-[var(--clay)]">M/F</span>
-                    </div>
-                    <div>
-                      <span className="font-mono text-[0.625rem] tracking-[0.2em] uppercase opacity-80">
-                        {a.category}
-                      </span>
-                      <p className="font-display text-xl leading-tight mt-1 line-clamp-3">
-                        {a.title}
-                      </p>
-                    </div>
+            {featuredArticles.map((a, i) => {
+              const vId = journalVisualMap[a.slug];
+              const v = visuals[vId];
+              return (
+                <Link key={a.slug} href={`/journal/${a.slug}`} className="group block">
+                  <EditorialImage
+                    src={v.path}
+                    webp={v.webp}
+                    alt={v.alt}
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="aspect-[3/2] border border-[var(--rule)] mb-4 group-hover:border-[var(--ink)] transition-colors"
+                  />
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="num-marker">{String(i + 1).padStart(2, "0")}</span>
+                    <span className="font-mono text-[0.625rem] tracking-[0.15em] uppercase text-[var(--warm-gray)]">
+                      {a.category} · {a.readingTime}
+                    </span>
                   </div>
-                  <div className="mt-4">
-                    <div className="flex items-center gap-3 mb-2">
-                      <span className="num-marker">{String(i + 1).padStart(2, "0")}</span>
-                      <span className="font-mono text-[0.625rem] tracking-[0.15em] uppercase text-[var(--warm-gray)]">
-                        {a.readingTime}
-                      </span>
-                    </div>
-                    <h3 className="font-display text-xl md:text-2xl tracking-tight leading-tight group-hover:text-[var(--clay)] transition-colors">
-                      {a.title}
-                    </h3>
-                    <p className="mt-2 text-sm text-[var(--ink-soft)] leading-relaxed line-clamp-3">
-                      {a.excerpt}
-                    </p>
-                  </div>
-                </article>
-              </Link>
-            ))}
+                  <h3 className="font-display text-xl md:text-2xl tracking-tight leading-tight group-hover:text-[var(--clay)] transition-colors">
+                    {a.title}
+                  </h3>
+                  <p className="mt-2 text-sm text-[var(--ink-soft)] leading-relaxed line-clamp-2">
+                    {a.excerpt}
+                  </p>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* ============ SECTION 08 — FREE EDUCATIONAL RESOURCE ============ */}
+      {/* ============ SECTION 08 — FREE EDUCATIONAL RESOURCE (with resource image) ============ */}
       <section className="border-b border-[var(--rule)]">
         <div className="container-editorial py-20 md:py-28">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -562,45 +529,21 @@ export default function HomePage() {
               </div>
             </div>
             <div className="lg:col-span-5">
-              <div
-                className="aspect-[4/5] w-full border border-[var(--rule)] bg-[var(--ivory)] paper-grain relative overflow-hidden"
-                aria-label="The Studio Audit — document preview"
-                role="img"
-              >
-                <div className="flex flex-col h-full p-6">
-                  <div className="flex items-center justify-between border-b border-[var(--rule)] pb-3">
-                    <span className="font-mono text-[0.625rem] tracking-[0.2em] uppercase text-[var(--warm-gray)]">
-                      Studio Audit · M/F
-                    </span>
-                    <span className="font-mono text-[0.625rem] text-[var(--clay)]">FREE</span>
-                  </div>
-                  <div className="flex-1 py-5 space-y-3">
-                    {[0, 1, 2, 3, 4, 5].map((i) => (
-                      <div key={i}>
-                        <div className="h-2 bg-[var(--rule)] rounded-full" style={{ width: `${[85, 70, 90, 60, 78, 65][i]}%` }} />
-                        <div className="mt-2 flex gap-1">
-                          {[0, 1, 2].map((j) => (
-                            <div key={j} className="w-2 h-2 rounded-full bg-[var(--rule)]" />
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="border-t border-[var(--rule)] pt-3 flex items-center justify-between">
-                    <span className="font-mono text-[0.625rem] tracking-[0.15em] uppercase text-[var(--warm-gray)]">
-                      14 pages · PDF
-                    </span>
-                    <span className="font-display text-[var(--clay)]">M/F</span>
-                  </div>
-                </div>
-              </div>
+              <EditorialImage
+                src={visuals.resourceStudioAudit.path}
+                webp={visuals.resourceStudioAudit.webp}
+                alt={visuals.resourceStudioAudit.alt}
+                sizes="(max-width: 1024px) 100vw, 42vw"
+                className="border border-[var(--rule)]"
+                caption="The Studio Audit — 14-page PDF, free."
+              />
             </div>
           </div>
         </div>
       </section>
 
-      {/* ============ SECTION 09 — NEWSLETTER INVITATION ============ */}
-      <section className="border-b border-[var(--rule)] bg-[var(--clay)] text-[var(--paper)]">
+      {/* ============ SECTION 09 — NEWSLETTER (with newsletter image) ============ */}
+      <section className="border-b border-[var(--rule)] bg-[var(--clay)] text-[var(--paper)] relative overflow-hidden">
         <div className="container-editorial py-20 md:py-28">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
             <div className="lg:col-span-6">
@@ -628,6 +571,16 @@ export default function HomePage() {
               </div>
             </div>
             <div className="lg:col-span-6 lg:pl-8 lg:border-l lg:border-[var(--paper)]/20">
+              {/* Newsletter still life image */}
+              <div className="mb-6 [&_img]:border-[var(--paper)]/30">
+                <EditorialImage
+                  src={visuals.newsletterMondayLetter.path}
+                  webp={visuals.newsletterMondayLetter.webp}
+                  alt={visuals.newsletterMondayLetter.alt}
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="aspect-[2/1] border border-[var(--paper)]/20"
+                />
+              </div>
               <h3 id="newsletter-heading" className="font-display text-2xl tracking-tight mb-5">
                 Subscribe to the Monday Letter
               </h3>

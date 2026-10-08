@@ -5,6 +5,8 @@ import { ArrowRight, ArrowUpRight, Download } from "lucide-react";
 import { resources, getResourceBySlug } from "@/content/resources";
 import { withBase } from "@/lib/config/paths";
 import { CheckoutButton } from "@/components/commerce/checkout-button";
+import { EditorialImage } from "@/components/editorial/editorial-image";
+import { visuals } from "@/content/visuals";
 
 /**
  * Extract an offer slug from a related-offer href.
@@ -125,61 +127,72 @@ export default async function ResourceDetailPage({
               </dl>
             </div>
 
-            {/* Right: document mockup */}
+            {/* Right: editorial photograph (Studio Audit) or document mockup */}
             <div className="lg:col-span-5">
-              <div
-                className="aspect-[4/5] w-full border border-[var(--rule)] bg-[var(--ivory)] paper-grain relative overflow-hidden"
-                role="img"
-                aria-label={`${resource.title} — ${resource.preview.pages} page PDF preview`}
-              >
-                <div className="flex flex-col h-full p-6">
-                  <div className="flex items-center justify-between border-b border-[var(--rule)] pb-3">
-                    <span className="font-mono text-[0.625rem] tracking-[0.2em] uppercase text-[var(--warm-gray)] truncate">
-                      {resource.title.toUpperCase()}
-                    </span>
-                    <span
-                      className="font-mono text-[0.625rem] tracking-[0.18em] uppercase shrink-0"
-                      style={{ color: accentColor }}
-                    >
-                      FREE
-                    </span>
-                  </div>
-                  <div className="flex-1 py-5 space-y-3">
-                    {[85, 70, 90, 60, 78, 65, 82, 55, 72, 88, 60, 75].map(
-                      (w, i) => (
-                        <div key={i}>
-                          <div
-                            className="h-1.5 bg-[var(--rule)] rounded-full"
-                            style={{ width: `${w}%` }}
-                          />
-                          {i % 3 === 0 && (
-                            <div className="mt-2 flex gap-1">
-                              {[0, 1, 2].map((j) => (
-                                <div
-                                  key={j}
-                                  className="w-1.5 h-1.5 rounded-full"
-                                  style={{ background: "var(--rule)" }}
-                                />
-                              ))}
-                            </div>
-                          )}
-                        </div>
-                      )
-                    )}
-                  </div>
-                  <div className="border-t border-[var(--rule)] pt-3 flex items-center justify-between">
-                    <span className="font-mono text-[0.625rem] tracking-[0.15em] uppercase text-[var(--warm-gray)]">
-                      {resource.preview.pages} pages · PDF
-                    </span>
-                    <span
-                      className="font-display"
-                      style={{ color: accentColor }}
-                    >
-                      M/F
-                    </span>
+              {slug === "studio-audit" ? (
+                <EditorialImage
+                  src={visuals.resourceStudioAudit.path}
+                  webp={visuals.resourceStudioAudit.webp}
+                  alt={visuals.resourceStudioAudit.alt}
+                  sizes="(max-width: 1024px) 100vw, 42vw"
+                  className="border border-[var(--rule)]"
+                  caption={`${resource.title} — ${resource.preview.pages}-page PDF, free.`}
+                />
+              ) : (
+                <div
+                  className="aspect-[4/5] w-full border border-[var(--rule)] bg-[var(--ivory)] paper-grain relative overflow-hidden"
+                  role="img"
+                  aria-label={`${resource.title} — ${resource.preview.pages} page PDF preview`}
+                >
+                  <div className="flex flex-col h-full p-6">
+                    <div className="flex items-center justify-between border-b border-[var(--rule)] pb-3">
+                      <span className="font-mono text-[0.625rem] tracking-[0.2em] uppercase text-[var(--warm-gray)] truncate">
+                        {resource.title.toUpperCase()}
+                      </span>
+                      <span
+                        className="font-mono text-[0.625rem] tracking-[0.18em] uppercase shrink-0"
+                        style={{ color: accentColor }}
+                      >
+                        FREE
+                      </span>
+                    </div>
+                    <div className="flex-1 py-5 space-y-3">
+                      {[85, 70, 90, 60, 78, 65, 82, 55, 72, 88, 60, 75].map(
+                        (w, i) => (
+                          <div key={i}>
+                            <div
+                              className="h-1.5 bg-[var(--rule)] rounded-full"
+                              style={{ width: `${w}%` }}
+                            />
+                            {i % 3 === 0 && (
+                              <div className="mt-2 flex gap-1">
+                                {[0, 1, 2].map((j) => (
+                                  <div
+                                    key={j}
+                                    className="w-1.5 h-1.5 rounded-full"
+                                    style={{ background: "var(--rule)" }}
+                                  />
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        )
+                      )}
+                    </div>
+                    <div className="border-t border-[var(--rule)] pt-3 flex items-center justify-between">
+                      <span className="font-mono text-[0.625rem] tracking-[0.15em] uppercase text-[var(--warm-gray)]">
+                        {resource.preview.pages} pages · PDF
+                      </span>
+                      <span
+                        className="font-display"
+                        style={{ color: accentColor }}
+                      >
+                        M/F
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
         </div>

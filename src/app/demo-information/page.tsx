@@ -50,6 +50,8 @@ const REAL_ITEMS = [
   "The filtering — the shop category filter, the membership plan selector, the curriculum and FAQ accordions.",
   "The curriculum content — the module structure, lesson summaries, objectives, and assignments across both courses.",
   "The journal articles — six original editorial essays on pricing, positioning, clients, systems, and independent work.",
+  "The editorial photography — 19 original AI-generated photographs produced via the z-ai image generation API, integrated across the homepage, about, courses, shop, membership, journal, newsletter, and resources pages.",
+  "The founder portrait — an AI-generated illustrative portrait of the fictional founder Elena Mercer. No real person is depicted.",
   "The downloadable preview files — real PDFs served from the public directory for the free resources and product previews.",
   "The form interactions — the newsletter and contact forms validate, simulate submission, and respond honestly.",
   "The demo checkout flow — the journey from product to confirmation, rendered faithfully without processing payment.",
@@ -62,6 +64,7 @@ const NOT_REAL_ITEMS = [
   "No real email delivery — the Monday Letter form simulates subscription. No email is stored or sent.",
   "No real customer data — the contact form simulates submission. No name, email, or message body is stored.",
   "No fabricated revenue, stats, reviews, or testimonials — any specific figures, scenarios, or social proof in the demonstration are illustrative, not real.",
+  "No real person depicted — the founder Elena Mercer is entirely fictional. Her portrait is an AI-generated illustrative image, not a photograph of a real individual. No professional history, credentials, or client outcomes are claimed.",
 ];
 
 export default function DemoInformationPage() {

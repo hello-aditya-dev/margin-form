@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { resources } from "@/content/resources";
+import { EditorialImage } from "@/components/editorial/editorial-image";
+import { visuals } from "@/content/visuals";
 
 export const metadata: Metadata = {
   title: "Free Resources",
@@ -144,13 +146,15 @@ export default function ResourcesPage() {
             <span className="eyebrow">The Flagship Resource</span>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            {/* Left: the document mock */}
+            {/* Left: the editorial photograph */}
             <div className="lg:col-span-5">
-              <DocumentMock
-                label="THE STUDIO AUDIT"
-                pages={flagship.preview.pages}
-                accent="clay"
-                size="lg"
+              <EditorialImage
+                src={visuals.resourceStudioAudit.path}
+                webp={visuals.resourceStudioAudit.webp}
+                alt={visuals.resourceStudioAudit.alt}
+                sizes="(max-width: 1024px) 100vw, 42vw"
+                className="border border-[var(--rule)]"
+                caption={`The Studio Audit — ${flagship.preview.pages}-page PDF, free.`}
               />
             </div>
 

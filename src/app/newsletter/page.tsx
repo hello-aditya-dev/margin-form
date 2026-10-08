@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { NewsletterForm } from "@/components/forms/newsletter-form";
+import { EditorialImage } from "@/components/editorial/editorial-image";
+import { visuals } from "@/content/visuals";
 
 export const metadata: Metadata = {
   title: "The Monday Letter",
@@ -108,6 +110,18 @@ export default function NewsletterPage() {
                 </dl>
               </div>
             </div>
+          </div>
+
+          {/* Editorial still life — the Monday Letter atmosphere */}
+          <div className="mt-12 md:mt-16">
+            <EditorialImage
+              src={visuals.newsletterMondayLetter.path}
+              webp={visuals.newsletterMondayLetter.webp}
+              alt={visuals.newsletterMondayLetter.alt}
+              sizes="(max-width: 1024px) 100vw, 1280px"
+              className="border border-[var(--rule)]"
+              caption="The Monday Letter — an editorial still life, illustrative."
+            />
           </div>
         </div>
       </section>

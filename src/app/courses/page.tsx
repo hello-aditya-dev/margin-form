@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { SectionHeader } from "@/components/editorial/section-header";
-import { CourseCover } from "@/components/editorial/covers";
+import { EditorialImage } from "@/components/editorial/editorial-image";
 import { CheckoutButton } from "@/components/commerce/checkout-button";
 import { courses } from "@/content/courses";
 import { faqs } from "@/content/faqs";
 import { formatPrice } from "@/lib/commerce/offers";
+import { visuals, courseVisualMap } from "@/content/visuals";
 
 export const metadata: Metadata = {
   title: "Courses",
@@ -31,6 +32,9 @@ export default function CoursesPage() {
   const flagship = courses.find((c) => c.isFlagship) ?? courses[0];
   const secondary = courses.find((c) => !c.isFlagship) ?? courses[1];
   const courseFaqs = faqs.filter((f) => f.category === "Courses").slice(0, 3);
+
+  const flagshipVisual = visuals[courseVisualMap[flagship.slug]];
+  const secondaryVisual = visuals[courseVisualMap[secondary.slug]];
 
   const comparisonRows: {
     label: string;
@@ -184,16 +188,25 @@ export default function CoursesPage() {
             {/* Cover */}
             <div className="lg:col-span-5">
               <Link href={`/courses/${flagship.slug}`} className="block group">
-                <CourseCover
-                  label={flagship.coverLabel}
-                  title={flagship.title}
-                  tagline={flagship.tagline}
-                  accent={flagship.heroAccent}
-                  price={formatPrice(flagship.price)}
-                  size="lg"
-                />
-                <p className="mt-4 text-xs text-[var(--warm-gray)] leading-relaxed">
-                  Illustrative cover composition. The course is a written
+                <div className="aspect-[3/4] w-full overflow-hidden border border-[var(--rule)] bg-[var(--paper-deep)] transition-colors group-hover:border-[var(--ink)]">
+                  <EditorialImage
+                    src={flagshipVisual.path}
+                    webp={flagshipVisual.webp}
+                    alt={flagshipVisual.alt}
+                    className="h-full w-full [&_img]:h-full [&_img]:object-cover"
+                    sizes="(min-width: 1024px) 40vw, 92vw"
+                  />
+                </div>
+                <div className="mt-4 flex items-baseline justify-between gap-4">
+                  <span className="font-mono text-[0.625rem] tracking-[0.18em] uppercase text-[var(--warm-gray)]">
+                    {flagship.coverLabel}
+                  </span>
+                  <span className="font-mono text-sm text-[var(--clay)]">
+                    {formatPrice(flagship.price)}
+                  </span>
+                </div>
+                <p className="mt-3 text-xs text-[var(--warm-gray)] leading-relaxed">
+                  Photographic cover image. The course is a written
                   curriculum; no physical object is shipped.
                 </p>
               </Link>
@@ -327,14 +340,23 @@ export default function CoursesPage() {
 
             <div className="lg:col-span-5 lg:order-1">
               <Link href={`/courses/${secondary.slug}`} className="block group">
-                <CourseCover
-                  label={secondary.coverLabel}
-                  title={secondary.title}
-                  tagline={secondary.tagline}
-                  accent={secondary.heroAccent}
-                  price={formatPrice(secondary.price)}
-                  size="lg"
-                />
+                <div className="aspect-[3/4] w-full overflow-hidden border border-[var(--rule)] bg-[var(--paper-deep)] transition-colors group-hover:border-[var(--ink)]">
+                  <EditorialImage
+                    src={secondaryVisual.path}
+                    webp={secondaryVisual.webp}
+                    alt={secondaryVisual.alt}
+                    className="h-full w-full [&_img]:h-full [&_img]:object-cover"
+                    sizes="(min-width: 1024px) 40vw, 92vw"
+                  />
+                </div>
+                <div className="mt-4 flex items-baseline justify-between gap-4">
+                  <span className="font-mono text-[0.625rem] tracking-[0.18em] uppercase text-[var(--warm-gray)]">
+                    {secondary.coverLabel}
+                  </span>
+                  <span className="font-mono text-sm text-[var(--olive)]">
+                    {formatPrice(secondary.price)}
+                  </span>
+                </div>
               </Link>
             </div>
           </div>
