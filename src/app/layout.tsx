@@ -29,7 +29,7 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://marginform.example"),
+  metadataBase: new URL("https://hello-aditya-dev.github.io/margin-form"),
   title: {
     default: "Margin / Form — The business of independent creativity",
     template: "%s · Margin / Form",
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     siteName: "Margin / Form",
     images: [
       {
-        url: "/images/og/og-default.jpg",
+        url: "https://hello-aditya-dev.github.io/margin-form/images/og/og-default.jpg",
         width: 1200,
         height: 630,
         alt: "Margin / Form — The business of independent creativity",
@@ -78,7 +78,7 @@ export const metadata: Metadata = {
     title: "Margin / Form — The business of independent creativity",
     description:
       "The business of independent creativity. Education, frameworks, and community for independent creative professionals.",
-    images: ["/images/og/twitter-card.jpg"],
+    images: ["https://hello-aditya-dev.github.io/margin-form/images/og/twitter-card.jpg"],
   },
 };
 

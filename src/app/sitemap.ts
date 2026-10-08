@@ -7,7 +7,7 @@ import { articles } from "@/content/journal";
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://marginform.example";
+  const base = "https://hello-aditya-dev.github.io/margin-form";
   const now = new Date();
 
   const staticRoutes = [
