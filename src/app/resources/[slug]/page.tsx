@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowRight, ArrowUpRight, Download } from "lucide-react";
 import { resources, getResourceBySlug } from "@/content/resources";
+import { withBase } from "@/lib/config/paths";
 import { CheckoutButton } from "@/components/commerce/checkout-button";
 
 /**
@@ -83,7 +84,7 @@ export default async function ResourceDetailPage({
 
               <div className="mt-8 flex flex-col sm:flex-row gap-4">
                 <a
-                  href={resource.preview.href}
+                  href={withBase(resource.preview.href)}
                   download
                   className="btn-ink px-7 py-4 font-mono-label inline-flex items-center justify-center gap-2"
                 >
@@ -267,7 +268,7 @@ export default async function ResourceDetailPage({
                   </p>
                 </div>
                 <a
-                  href={resource.preview.href}
+                  href={withBase(resource.preview.href)}
                   download
                   className="btn-ink px-7 py-4 font-mono-label inline-flex items-center justify-center gap-2"
                 >

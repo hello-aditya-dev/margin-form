@@ -7,6 +7,7 @@ import { Markdown } from "@/components/editorial/markdown";
 import { CheckoutButton } from "@/components/commerce/checkout-button";
 import { products } from "@/content/products";
 import { formatPrice } from "@/lib/commerce/offers";
+import { withBase } from "@/lib/config/paths";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -186,7 +187,7 @@ export default async function ProductDetailPage({ params }: Props) {
             </div>
             <div className="lg:col-span-8">
               <a
-                href={product.preview.href}
+                href={withBase(product.preview.href)}
                 download
                 className="block editorial-card hover:border-[var(--ink)] p-7 md:p-9 group transition-colors"
                 aria-label={`Download ${product.preview.name}`}

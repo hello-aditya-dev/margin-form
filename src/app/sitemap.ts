@@ -4,6 +4,8 @@ import { products } from "@/content/products";
 import { resources } from "@/content/resources";
 import { articles } from "@/content/journal";
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = "https://marginform.example";
   const now = new Date();

@@ -3,6 +3,7 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { track } from "@/lib/analytics/taxonomy";
 
 interface CheckoutButtonProps {
   offerSlug: string;
@@ -15,10 +16,15 @@ interface CheckoutButtonProps {
 
 /**
  * Checkout button.
- * - In demo mode: navigates to /checkout/[offerSlug]
- * - In hosted mode: navigates to external Whop URL (resolved server-side via API)
  *
- * To avoid exposing env to client, we resolve destination via /api/checkout/resolve.
+ * Navigates directly to /checkout/[offerSlug]. The checkout page (a
+ * server component pre-rendered at build time) renders the appropriate
+ * CTA for the active payments mode:
+ *  - demo mode  → demo checkout flow (no payment)
+ *  - hosted mode → external Whop link (baked in at build time from env)
+ *
+ * This avoids any runtime API dependency, making the component fully
+ * compatible with static export (GitHub Pages).
  */
 export function CheckoutButton({
   offerSlug,
@@ -30,31 +36,15 @@ export function CheckoutButton({
   const router = useRouter();
   const [pending, setPending] = React.useState(false);
 
-  const onClick = async (e: React.MouseEvent) => {
+  const onClick = (e: React.MouseEvent) => {
     e.preventDefault();
     if (pending) return;
     setPending(true);
-    try {
-      const res = await fetch(
-        `/api/checkout/resolve?slug=${encodeURIComponent(offerSlug)}`,
-        { method: "GET" }
-      );
-      const data = (await res.json()) as {
-        href: string;
-        external: boolean;
-        mode: "demo" | "hosted";
-      };
-      if (data.external) {
-        window.location.href = data.href;
-      } else {
-        router.push(data.href);
-      }
-    } catch {
-      router.push(`/checkout/${offerSlug}`);
-    } finally {
-      // small delay to show feedback
-      setTimeout(() => setPending(false), 200);
-    }
+    track({ type: "checkout_start", offer: offerSlug, mode: "demo" });
+    // Brief delay for visual feedback.
+    setTimeout(() => {
+      router.push(`/checkout/${offerSlug}/`);
+    }, 150);
   };
 
   return (

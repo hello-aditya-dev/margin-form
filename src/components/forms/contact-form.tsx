@@ -5,6 +5,7 @@ import { z } from "zod";
 import { Check, Loader2, AlertCircle, Copy } from "lucide-react";
 import { track } from "@/lib/analytics/taxonomy";
 import { cn } from "@/lib/utils";
+import { withBase } from "@/lib/config/paths";
 
 /**
  * Subject categories — kept in sync with the categories described on the
@@ -335,7 +336,7 @@ export function ContactForm({ className, labeledBy }: ContactFormProps) {
           I understand this is a demonstration form. In demo mode, my message
           is not stored or sent. Read the{" "}
           <a
-            href="/privacy"
+            href={withBase("/privacy")}
             className="underline underline-offset-2 hover:text-[var(--ink)]"
           >
             privacy policy

@@ -1,5 +1,6 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import { withBase } from "@/lib/config/paths";
 
 /**
  * Lightweight markdown-lite renderer for editorial prose.
@@ -159,8 +160,9 @@ function renderInline(text: string): React.ReactNode[] {
     } else if (m[4] !== undefined) {
       nodes.push(<code key={k++}>{m[4]}</code>);
     } else if (m[5] !== undefined && m[6] !== undefined) {
-      const href = m[6];
-      const isExternal = /^https?:/.test(href);
+      const rawHref = m[6];
+      const isExternal = /^https?:/.test(rawHref);
+      const href = isExternal ? rawHref : withBase(rawHref);
       nodes.push(
         <a
           key={k++}

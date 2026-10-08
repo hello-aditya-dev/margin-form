@@ -5,6 +5,7 @@ import { z } from "zod";
 import { Check, Loader2, AlertCircle } from "lucide-react";
 import { track } from "@/lib/analytics/taxonomy";
 import { cn } from "@/lib/utils";
+import { withBase } from "@/lib/config/paths";
 
 const schema = z.object({
   email: z.string().email("Please enter a valid email address."),
@@ -171,7 +172,7 @@ export function NewsletterForm({
           I understand this is a demonstration form. In demo mode, no email is
           stored or sent. Read the{" "}
           <a
-            href="/privacy"
+            href={withBase("/privacy")}
             className="underline underline-offset-2 hover:text-[var(--ink)]"
           >
             privacy policy

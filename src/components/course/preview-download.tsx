@@ -4,6 +4,7 @@ import * as React from "react";
 import { FileDown } from "lucide-react";
 import { track } from "@/lib/analytics/taxonomy";
 import { cn } from "@/lib/utils";
+import { withBase } from "@/lib/config/paths";
 
 interface PreviewDownloadLinkProps {
   /** Course slug — used as the analytics event payload. */
@@ -30,7 +31,7 @@ export function PreviewDownloadLink({
 
   return (
     <a
-      href={href}
+      href={withBase(href)}
       onClick={onClick}
       className={cn(
         "inline-flex items-center gap-2 font-mono-label text-[var(--clay)] hover:text-[var(--ink)] transition-colors link-underline",
