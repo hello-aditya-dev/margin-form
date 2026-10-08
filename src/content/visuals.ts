@@ -35,7 +35,7 @@ export const visuals: Record<string, VisualAsset> = {
     id: "hero-studio",
     path: "/images/hero/hero-studio.jpg",
     webp: "/images/hero/hero-studio.webp",
-    alt: "An independent creative professional reviewing printed layouts at a dark walnut studio desk in warm afternoon window light, with art books and a ceramic coffee cup nearby",
+    alt: "Close-up of a creative professional's hands sketching in an open notebook on a dark walnut desk, surrounded by fabric swatches, art books, a ceramic mug, and a brass ruler in warm golden afternoon window light",
     location: "Homepage hero",
     provenance: AI_PHOTO,
     aspect: "landscape",
